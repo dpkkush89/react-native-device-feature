@@ -1,0 +1,14 @@
+{
+  "name": "NativeDvcFtr",
+  "displayName": "NativeDvcFtr",
+  "expo": {
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "The app needs accesses to your Camera in order to take photos."
+        }
+      ]
+    ]
+  }
+}
