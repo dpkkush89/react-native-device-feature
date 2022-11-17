@@ -3,7 +3,7 @@ import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Colors} from '../../Constants/colors';
 
-const OutlinedButton = ({icon, size, color, children, onTap}) => {
+const OutlinedButton = ({icon, children, onTap}) => {
   return (
     <Pressable
       style={({pressed}) => [styles.button, pressed && styles.pressed]}
@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: Colors.primary500,
+    borderRadius: 5,
   },
   pressed: {
     opacity: 0.7,
