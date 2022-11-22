@@ -65,3 +65,4 @@ buck-out/
 
 #GOOGLE_API_KEY
 /util/mapAPI.js
+# /android/app/src/main/AndroidManifest.xml

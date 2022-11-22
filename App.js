@@ -8,18 +8,18 @@
 import {registerRootComponent} from 'expo';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
 import React from 'react';
-
 import {StatusBar, StyleSheet, useColorScheme} from 'react-native';
+import {enableLatestRenderer} from 'react-native-maps';
 
 import IconButton from './components/UI/IconButton';
 import {Colors} from './Constants/colors';
 import AddPlace from './screens/AddPlace';
 import AllPlaces from './screens/AllPlaces';
+import Map from './screens/Map';
 
 const Stack = createNativeStackNavigator();
-
+enableLatestRenderer();
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -64,6 +64,7 @@ const App = () => {
             component={AddPlace}
             options={{title: 'Add new Place'}}
           />
+          <Stack.Screen name="Map" component={Map} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
