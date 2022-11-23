@@ -1,6 +1,6 @@
 import {Alert, StyleSheet, Text, Image, View} from 'react-native';
-import React, {useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {useNavigation, useRoute, useIsFocused} from '@react-navigation/native';
 import {
   getCurrentPositionAsync,
   useForegroundPermissions,
@@ -13,11 +13,23 @@ import {getMapPreview} from '../../util/location';
 
 const LocationPicker = () => {
   const [pickedLocation, setPickedLocation] = useState();
+  const isFocused = useIsFocused();
 
   const navigation = useNavigation();
+  const route = useRoute();
 
   const [locationPermissionInfo, requestPermission] =
     useForegroundPermissions();
+
+  useEffect(() => {
+    if (isFocused && route.params) {
+      const mapPickedLocation = {
+        latitude: route.params.pickedLatitude,
+        longitude: route.params.pickedLongitude,
+      };
+      setPickedLocation(mapPickedLocation);
+    }
+  }, [route, isFocused]);
   async function verifyPermission() {
     if (locationPermissionInfo.status === PermissionStatus.UNDETERMINED) {
       const permissionResponse = await requestPermission();
