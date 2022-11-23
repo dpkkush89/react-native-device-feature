@@ -9,9 +9,9 @@ import {
 
 import {Colors} from '../../Constants/colors';
 import OutlinedButton from '../UI/OutlinedButton';
-import {getMapPreview} from '../../util/location';
+import {getAddress, getMapPreview} from '../../util/location';
 
-const LocationPicker = () => {
+const LocationPicker = ({onPickLocation}) => {
   const [pickedLocation, setPickedLocation] = useState();
   const isFocused = useIsFocused();
 
@@ -30,6 +30,20 @@ const LocationPicker = () => {
       setPickedLocation(mapPickedLocation);
     }
   }, [route, isFocused]);
+
+  useEffect(() => {
+    async function handleLocation() {
+      if (pickedLocation) {
+        const address = await getAddress(
+          pickedLocation.latitude,
+          pickedLocation.longitude,
+        );
+        onPickLocation({...pickedLocation, address: address});
+      }
+    }
+    handleLocation();
+  }, [pickedLocation, onPickLocation]);
+
   async function verifyPermission() {
     if (locationPermissionInfo.status === PermissionStatus.UNDETERMINED) {
       const permissionResponse = await requestPermission();
